@@ -7,7 +7,7 @@ NPM: 2206814551<br>
 Saya menggunakan tileset dari [PLATFORMER/METROIDVANIA ASSET PACK](https://o-lobster.itch.io/platformmetroidvania-pixel-art-asset-pack) di itch.io dengan ukuran 64x64.
 
 ## Spawner Arrow (Shooter)
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/shooter.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/shooter.png?raw=true)<br>
 Merupakan sebuah Spawner yang menembakkan sebuah Arrow secara horizontal. Jika Player terkena Arrow tersebut maka Player akan mati dan mengulang level tersebut.
 #### Penjelasan
 Membuat sebuah scene baru berupa sebuah Sprite untuk menampilkan Spawner tersebut dan sebuah script untuk menembakkan Arrow.
@@ -30,7 +30,7 @@ func _on_timer_timeout():
 `_ready()`: berisi sebuah timer untuk menembak Arrow secara berkala.<br>
 `_on_timer_timeout()`: membuat objek Arrow dan menambahkan Arrow tersebut ke dalam scene.<br>
 Selanjutnya membuat sebuah scene baru bertipe RigidBody untuk menampilkan Arrow dan script untuk membuat Player mati jika terkena Arrow tersebut.
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/arrow.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/arrow.png?raw=true)<br>
 ```
 @export var speed: float = 300
 @export var direction: Vector2 = Vector2.LEFT
@@ -46,7 +46,7 @@ func _on_body_entered(body: Node):
 `_on_body_entered(body: Node)`: saat Arrow mengenai Player, maka level akan di reload.
 
 ## Falling Spike
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/spike.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/spike.png?raw=true)<br>
 Merupakan sebuah objek berbentuk spike yang akan jatuh ketika Player lewat di bawahnya. Player akan mati jika terkena spike tersebut.
 #### Penjelasan
 Membuat scene baru yang berisi sebuah Sprite untuk menampilkan gambar Spike, Area2D Hitbox sebagai trigger jika Player terkena Spike, dan Area2D PlayerDetect untuk mendeteksi Player saat lewat di bawah Spike tersebut.
@@ -77,7 +77,7 @@ func fall():
 `fall()`: mengganti kecepatan Spike agar jatuh
 
 ## Falling Stone
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/stone.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/stone.png?raw=true)<br>
 Merupakan sebuah batu berbentuk bola yang akan jatuh dan menggelinding ketika Player lewat di bawahnya. Player akan mati jika terkena batu tersebut.
 #### Penjelasan
 Membuat scene baru yang berisi sebuah Sprite untuk menampilkan gambar batu, Hitbox sebagai trigger jika Player terkena batu, dan Area2D untuk mendeteksi Player saat lewat di bawah batu tersebut.
