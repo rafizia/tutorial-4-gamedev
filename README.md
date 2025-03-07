@@ -29,7 +29,7 @@ func _on_timer_timeout():
 ```
 `_ready()`: berisi sebuah timer untuk menembak Arrow secara berkala.<br>
 `_on_timer_timeout()`: membuat objek Arrow dan menambahkan Arrow tersebut ke dalam scene.<br>
-Selanjutnya membuat sebuah scene baru bertipe RigidBody untuk menampilkan Arrow dan script untuk membuat Player mati jika terkena Arrow tersebut.
+Selanjutnya membuat sebuah scene baru bertipe RigidBody untuk menampilkan Arrow dan script untuk membuat Player mati jika terkena Arrow tersebut.<br>
 ![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/arrow.png?raw=true)<br>
 ```
 @export var speed: float = 300
