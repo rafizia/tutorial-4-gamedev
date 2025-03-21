@@ -3,12 +3,12 @@ NPM: 2206814551
 
 ## Halaman Game Over
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/game_over.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/game_over.png?raw=true)<br>
 Halaman ini menampilkan sebuah Label Game Over dan juga LinkButton YES dan NO untuk memberi pilihan pemain untuk melanjutkan permainan atau tidak. Jika pemain memilih YES, maka game akan restart dari level 1, sedangkan jika pemain memilih NO, maka pemain akan kembali ke menu utama.
 
 #### Penjelasan
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/game_over_structure.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/game_over_structure.png?raw=true)<br>
 Scene GameOverPage terdiri dari sebuah Node2D background, Label GameOver, Label PlayAgain, HBoxContainer yang berisi LinkButton YES dan NO, serta TileMap. Terdapat juga script pada pada masing-masing LinkButton untuk menangani _event handler_ ketika pemain menekan tombol tersebut:
 
 ```
@@ -35,12 +35,12 @@ func _on_pressed() -> void:
 
 ## Halaman Stage Select
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/stage_select.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/stage_select.png?raw=true)<br>
 Halaman ini menampilkan sebuah LinkButton pilihan level yaitu level 1 dan level 2, serta sebuah LinkButton BackButton untuk kembali ke menu utama.
 
 #### Penjelasan
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/stage_select_structure.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/stage_select_structure.png?raw=true)<br>
 Scene StageSelectPage terdiri dari sebuah Node2D background, HBoxContainer yang berisi LinkButton Level 1 dan Level 2, LinkButton BackButton, serta TileMap. Terdapat juga script pada pada masing-masing LinkButton untuk menangani _event handler_ ketika pemain menekan tombol tersebut:
 
 ```
@@ -86,7 +86,7 @@ Merupakan sebuah scene untuk menampilkan transisi dari suatu scene ke scene lain
 
 #### Penjelasan
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/transition_scene.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/transition_screen.png?raw=true)<br>
 Scene TransitionScreen terdiri dari sebuah ColorRect dan sebuah AnimationPlayer. Terdapat juga script untuk scene ini yaitu:
 
 ```
@@ -112,12 +112,12 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 ## Life Heart
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/heart.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/heart.png?raw=true)<br>
 Merupakan sebuah scene yang merepresentasikan jumlah HP pemain. Masing-masing gambar hati merepresentasikan 1 HP pemain. Jika pemain terkena damage maka HP pemain akan berkurang 1.
 
 #### Penjelasan
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/heart_structure.png?raw=true)
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/heart_structure.png?raw=true)<br>
 Scene Hearts merupakan sebuah scene dengan type HBoxContainer yang terdiri dari sebuah TextureRect dengan gambar hati. Terdapat juga sebuah script untuk Player ketika player terkena damage:
 
 ```
