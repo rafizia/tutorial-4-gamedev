@@ -9,7 +9,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.get_name() == "Player":
-		get_tree().call_deferred("reload_current_scene")
+		body.take_damage()
+		queue_free()
 	
 func _on_player_detect_body_entered(body: Node2D) -> void:
 	if body.get_name() == "Player": 

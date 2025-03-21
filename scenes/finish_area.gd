@@ -6,4 +6,5 @@ func _on_body_entered(body: Node2D) -> void:
 		body.show_win()
 		await get_tree().create_timer(5).timeout
 		get_tree().call_deferred("reload_current_scene")
+		global.lives = 3
 		

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://popg5pks5hhp"]
+
+[ext_resource type="Script" path="res://scenes/life_counter.gd" id="1_oitgp"]
+[ext_resource type="Texture2D" uid="uid://ccxxrvg6o5kng" path="res://assets/Heart.png" id="2_kt8y7"]
+
+[node name="Hearts" type="HBoxContainer"]
+offset_right = 1544.0
+offset_bottom = 512.0
+scale = Vector2(0.1, 0.1)
+script = ExtResource("1_oitgp")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_kt8y7")

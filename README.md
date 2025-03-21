@@ -1,104 +1,158 @@
 Nama: Muhammad Rafi Zia Ulhaq<br>
-NPM: 2206814551<br>
+NPM: 2206814551
 
-## Tilemap
+## Halaman Game Over
 
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/tilemap.png?raw=true)
-Saya menggunakan tileset dari [PLATFORMER/METROIDVANIA ASSET PACK](https://o-lobster.itch.io/platformmetroidvania-pixel-art-asset-pack) di itch.io dengan ukuran 64x64.
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/game_over.png?raw=true)
+Halaman ini menampilkan sebuah Label Game Over dan juga LinkButton YES dan NO untuk memberi pilihan pemain untuk melanjutkan permainan atau tidak. Jika pemain memilih YES, maka game akan restart dari level 1, sedangkan jika pemain memilih NO, maka pemain akan kembali ke menu utama.
 
-## Spawner Arrow (Shooter)
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/shooter.png?raw=true)
-Merupakan sebuah Spawner yang menembakkan sebuah Arrow secara horizontal. Jika Player terkena Arrow tersebut maka Player akan mati dan mengulang level tersebut.
 #### Penjelasan
-Membuat sebuah scene baru berupa sebuah Sprite untuk menampilkan Spawner tersebut dan sebuah script untuk menembakkan Arrow.
+
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/game_over_structure.png?raw=true)
+Scene GameOverPage terdiri dari sebuah Node2D background, Label GameOver, Label PlayAgain, HBoxContainer yang berisi LinkButton YES dan NO, serta TileMap. Terdapat juga script pada pada masing-masing LinkButton untuk menangani _event handler_ ketika pemain menekan tombol tersebut:
+
 ```
-@export var arrow_scene: PackedScene
-@export var shoot_direction: Vector2 = Vector2.LEFT
-@export var shoot_speed: float = 1000
-@export var shoot_interval: float = 3.0
+# Kode untuk LinkButton YES
+
+func _on_pressed() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.get_node("AnimationPlayer").animation_finished
+	get_tree().change_scene_to_file(str("res://scenes/Level1.tscn"))
+```
+
+`_on_pressed()`: restart game dari level 1.
+
+```
+# Kode untuk LinkButton NO
+
+func _on_pressed() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.get_node("AnimationPlayer").animation_finished
+	get_tree().change_scene_to_file(str("res://scenes/MainMenu.tscn"))
+```
+
+`_on_pressed()`: kembali ke menu utama.
+
+## Halaman Stage Select
+
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/stage_select.png?raw=true)
+Halaman ini menampilkan sebuah LinkButton pilihan level yaitu level 1 dan level 2, serta sebuah LinkButton BackButton untuk kembali ke menu utama.
+
+#### Penjelasan
+
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/stage_select_structure.png?raw=true)
+Scene StageSelectPage terdiri dari sebuah Node2D background, HBoxContainer yang berisi LinkButton Level 1 dan Level 2, LinkButton BackButton, serta TileMap. Terdapat juga script pada pada masing-masing LinkButton untuk menangani _event handler_ ketika pemain menekan tombol tersebut:
+
+```
+# Kode untuk LinkButton Level 1
+
+@export var sceneName: String = "Level1"
+
+func _on_pressed() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.get_node("AnimationPlayer").animation_finished
+	get_tree().change_scene_to_file(str("res://scenes/" + sceneName + ".tscn"))
+```
+
+`_on_pressed()`: memilih level 1.
+
+```
+# Kode untuk LinkButton Level 2
+
+@export var sceneName: String = "Level2"
+
+func _on_pressed() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.get_node("AnimationPlayer").animation_finished
+	get_tree().change_scene_to_file(str("res://scenes/" + sceneName + ".tscn"))
+```
+
+`_on_pressed()`: memilih level 2.
+
+```
+# Kode untuk LinkButton Back
+
+func _on_pressed() -> void:
+	TransitionScreen.transition()
+	await TransitionScreen.get_node("AnimationPlayer").animation_finished
+	get_tree().change_scene_to_file(str("res://scenes/MainMenu.tscn"))
+```
+
+`_on_pressed()`: kembali ke menu utama.
+
+## Transisi Antar Scene
+
+Merupakan sebuah scene untuk menampilkan transisi dari suatu scene ke scene lain.
+
+#### Penjelasan
+
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/transition_scene.png?raw=true)
+Scene TransitionScreen terdiri dari sebuah ColorRect dan sebuah AnimationPlayer. Terdapat juga script untuk scene ini yaitu:
+
+```
+@onready var color_rect: ColorRect = $ColorRect
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready():
-	$Timer.wait_time = shoot_interval           # mengatur waktu sesuai shoot_interval
-	$Timer.start()                              # mulai timer
+	color_rect.visible = false
 
-func _on_timer_timeout():
-	var arrow = arrow_scene.instantiate() as RigidBody2D       # spawn Arrow
-	arrow.global_position = global_position                    # meletakkan Arrow
-	arrow.linear_velocity = shoot_direction * shoot_speed      # memberi kecepatan Arrow
-	get_parent().add_child(arrow)                              # menambahkan Arrow ke dalam scene
+func transition():
+	color_rect.visible = true
+	animation_player.play("fade_to_black")
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "fade_to_black":
+		animation_player.play("fade_to_normal")
+	elif anim_name == "fade_to_normal":
+		color_rect.visible = false
 ```
-`_ready()`: berisi sebuah timer untuk menembak Arrow secara berkala.<br>
-`_on_timer_timeout()`: membuat objek Arrow dan menambahkan Arrow tersebut ke dalam scene.<br>
-Selanjutnya membuat sebuah scene baru bertipe RigidBody untuk menampilkan Arrow dan script untuk membuat Player mati jika terkena Arrow tersebut.
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/arrow.png?raw=true)
-```
-@export var speed: float = 300
-@export var direction: Vector2 = Vector2.LEFT
 
-func _physics_process(delta):
-	linear_velocity = direction * speed     # mengatur kecepatan
+`transition()`: mengubah visibility color_react dan memainkan animasi transisi.<br>
+`_on_animation_player_animation_finished()`: dijalankan saat animasi transisi selesai.
 
-func _on_body_entered(body: Node):
-	if body.get_name() == "Player":
-		get_tree().call_deferred("reload_current_scene")    # reload level
-```
-`_physics_process(delta)`: mengatur kecepatan Arrow tersebut.<br>
-`_on_body_entered(body: Node)`: saat Arrow mengenai Player, maka level akan di reload.
+## Life Heart
 
-## Falling Spike
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/spike.png?raw=true)
-Merupakan sebuah objek berbentuk spike yang akan jatuh ketika Player lewat di bawahnya. Player akan mati jika terkena spike tersebut.
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/heart.png?raw=true)
+Merupakan sebuah scene yang merepresentasikan jumlah HP pemain. Masing-masing gambar hati merepresentasikan 1 HP pemain. Jika pemain terkena damage maka HP pemain akan berkurang 1.
+
 #### Penjelasan
-Membuat scene baru yang berisi sebuah Sprite untuk menampilkan gambar Spike, Area2D Hitbox sebagai trigger jika Player terkena Spike, dan Area2D PlayerDetect untuk mendeteksi Player saat lewat di bawah Spike tersebut.
+
+![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/tutorial-6/image/heart_structure.png?raw=true)
+Scene Hearts merupakan sebuah scene dengan type HBoxContainer yang terdiri dari sebuah TextureRect dengan gambar hati. Terdapat juga sebuah script untuk Player ketika player terkena damage:
+
 ```
-@export var speed = 160.0
-var current_speed = 0.0
-
-
-func _physics_process(delta: float) -> void:
-	position.y += current_speed * delta     # menjatuhkan Spike
-
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.get_name() == "Player":        
-		get_tree().call_deferred("reload_current_scene")
-	
-func _on_player_detect_body_entered(body: Node2D) -> void:
-	if body.get_name() == "Player": 
-		$AnimationPlayer.play("fall")
-		
-func fall():
-	current_speed = speed       # mengganti kecepatan Spike agar terjatuh
-	await get_tree().create_timer(5).timeout       # tunggu 5 detik
-	queue_free()                                   # hapus objek
+func take_damage():
+	isHurt = true
+	$AnimatedSprite2D.play("hurt")
+	global.lives -=1
+	await get_tree().create_timer(0.5).timeout
+	isHurt = false
+	if (global.lives == 0):
+		get_tree().change_scene_to_file.call_deferred(str("res://scenes/GameOver.tscn"))
+		global.lives = 3
+	else:
+		hearts.update_hearts()
 ```
-`_physics_process(delta: float)`: menjatuhkan Spike sesuai kecepatan current_speed<br>
-`_on_hitbox_body_entered(body: Node2D)`: jika terkena Player, maka reload level<br>
-`_on_player_detect_body_entered(body: Node2D)`: mendeteksi Player saat lewat di bawahnya<br>
-`fall()`: mengganti kecepatan Spike agar jatuh
 
-## Falling Stone
-![alt text](https://github.com/rafizia/tutorial-4-gamedev/blob/main/image/stone.png?raw=true)
-Merupakan sebuah batu berbentuk bola yang akan jatuh dan menggelinding ketika Player lewat di bawahnya. Player akan mati jika terkena batu tersebut.
-#### Penjelasan
-Membuat scene baru yang berisi sebuah Sprite untuk menampilkan gambar batu, Hitbox sebagai trigger jika Player terkena batu, dan Area2D untuk mendeteksi Player saat lewat di bawah batu tersebut.
+`take_damage()`: fungsi ini akan dipanggil setiap kali pemain terkena damage, ketika pemain terkena damage maka akan mengurangi HP pemain (global.lives) sebanyak 1 HP. Jika HP pemain 0 maka tampilkan scene GameOver. Jika HP pemain tidak sama dengan 0 maka panggil fungsi `update_heart` pada scene Heart tadi untuk meng-update tampilan HP pemain. Berikut merupakan script untuk meng-update tampilan HP pemain:
+
 ```
+@export var heart_scene: PackedScene = preload("res://scenes/LifeCounter.tscn")
+
 func _ready():
-	gravity_scale = 0.0
-	
-func _on_area_2d_body_entered(body):
-	if body.get_name() == "Player":
-		gravity_scale = 1.0         # mengganti nilai gravitasi
-		await get_tree().create_timer(10).timeout
-		queue_free()
+	update_hearts()
 
-func _on_body_entered(body: Node) -> void:
-	if body.get_name() == "Player":
-		get_tree().call_deferred("reload_current_scene")
+func update_hearts():
+	for child in get_children():
+		child.queue_free()
+
+	for i in range(global.lives):
+		var heart = heart_scene.instantiate()
+		add_child(heart)
 ```
-`_ready()`: mengatur gravitasi menjadi 0 agar batu tidak jatuh<br>
-`_on_area_2d_body_entered(body)`: mendeteksi Player saat lewat di bawah batu tersebut dan mengganti nilai gravitasi menjadi 1 agar batu terjatuh<br>
-`_on_body_entered(body: Node)`: jika terkena Player, maka reload level
 
+`update_hearts()`: tambahkan child yaitu sebuah TextureRect bergambar hati sesuai dengan jumlah HP pemain, jika pemain memiliki 3 HP maka tampilkan 3 buah gambar hati.
 
 ##### Referensi:
-https://www.youtube.com/watch?v=p83cg4OYGAE&t=327s<br>
+
+https://youtu.be/Shj_QVwrefY?si=iEGpwhqhzJWhTvRu<br>

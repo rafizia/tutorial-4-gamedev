@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://yqmk0vpvnyxr"]
+[gd_scene load_steps=10 format=4 uid="uid://yqmk0vpvnyxr"]
 
 [ext_resource type="PackedScene" uid="uid://bc2fujtl13g10" path="res://scenes/Player.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://cluh2ekc38ktx" path="res://assets/kenney_platformerpack/Spritesheets/spritesheet_gr_dirt.png" id="2_3ode0"]
 [ext_resource type="Texture2D" uid="uid://chgqimvh7rdh6" path="res://assets/Familiar Looking Rocket.png" id="3_o7p2r"]
 [ext_resource type="PackedScene" uid="uid://4a26hnuectey" path="res://scenes/AreaTrigger.tscn" id="4_ycbux"]
+[ext_resource type="Script" path="res://scenes/finish_level_1.gd" id="5_1g0ii"]
 [ext_resource type="Script" path="res://scenes/spawner.gd" id="5_hjof1"]
 [ext_resource type="PackedScene" uid="uid://bl3qr1fgfp6n6" path="res://scenes/FallingFish.tscn" id="6_1pk4u"]
 
@@ -73,12 +74,12 @@ texture = ExtResource("3_o7p2r")
 [node name="AreaTrigger" parent="Sprite2D" instance=ExtResource("4_ycbux")]
 position = Vector2(-1, 128)
 scale = Vector2(10, 10)
+script = ExtResource("5_1g0ii")
 sceneName = "Level2"
 
 [node name="AreaTrigger" parent="." instance=ExtResource("4_ycbux")]
 position = Vector2(334, 484)
 scale = Vector2(1000, 10)
-sceneName = "Level1"
 
 [node name="Spawner" type="Node2D" parent="."]
 position = Vector2(-39, -549)
